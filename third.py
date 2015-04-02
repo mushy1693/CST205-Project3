@@ -28,6 +28,9 @@ def main():
    canvas = Canvas(frame, bg='white', width=600, height=600)
    canvas.pack()
 
+   def removeWidget(widget):
+      widget.destroy()
+
 #http://www.java2s.com/Tutorial/Python/0360__Tkinker/Canvaspaintprogram.htm
    def draw( event ):
       x1, y1 = ( event.x - 1 ), ( event.y - 1 )
@@ -37,10 +40,17 @@ def main():
    def end():
       canvas.delete("all")
 
-   canvas.bind( "<B1-Motion>", draw )
-   clear_button=Button(text="CLEAR", command=lambda: end())
-   clear_button.pack()
+   def halt():
+      canvas.bind("<B1-Motion>", lambda e: "break")
 
+   def game():
+      canvas.bind( "<B1-Motion>", draw )
+      clear_button=Button(text="CLEAR", command=lambda: end())
+      clear_button.pack()
+      submit_button=Button(text="Submit", command=lambda: halt())
+      submit_button.pack()
+
+   game()
    root.mainloop()  
 
 main()
