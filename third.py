@@ -43,12 +43,24 @@ def main():
    def halt():
       canvas.bind("<B1-Motion>", lambda e: "break")
 
+   def removeWidget(widget):
+      widget.destroy()
+
    def game():
+   
+      def newGame():
+         removeWidget(clear_button)
+         removeWidget(submit_button)
+         removeWidget(switch_button)
+         game()
+   
       canvas.bind( "<B1-Motion>", draw )
       clear_button=Button(text="CLEAR", command=lambda: end())
       clear_button.pack()
       submit_button=Button(text="Submit", command=lambda: halt())
       submit_button.pack()
+      switch_button=Button(text="Switch", command=lambda: newGame())
+      switch_button.pack()
 
    game()
    root.mainloop()  
