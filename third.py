@@ -25,6 +25,8 @@ def main():
    center_window(800,800)       
    frame = Frame(root)
    frame.pack()
+   top_can = Canvas(frame, bg='peachpuff4', width=600, height=50)
+   top_can.pack()
    canvas = Canvas(frame, bg='white', width=600, height=600)
    canvas.pack()
 
