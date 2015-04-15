@@ -103,6 +103,8 @@ def main():
    # Stop canvas from drawing and change message
    def halt(label1):
       canvas.bind("<B1-Motion>", lambda e: "break")
+      global time
+      time = 0
       turn_label(label1)
 
    # Remove all widget on the Frames
@@ -142,7 +144,7 @@ def main():
       def newGame():
 
          choosePlayer()
-
+         
          removeWidget(player1label)
          removeWidget(player2label)
          removeWidget(wordlabel)
@@ -152,6 +154,8 @@ def main():
          removeWidget(next_button)
          removeWidget(inputBox)
          canvas.delete(ALL)
+         global time
+         time = 30
          game()
 
       chooseColor()
@@ -159,10 +163,25 @@ def main():
       # Define player1, player2, and Info Label
       player1label = Label(playerAndScore, text="~Player 1 Turn~" + "\n" + "Score: " + str(score1), width = 16, height = 5, background = p1Color)
       player1label.pack(side = LEFT)
-
+      
       wordlabel= Label(playerAndScore, text="Word: " + word + "\n" + "Time Left: " + str(time) + "\n" + "Tip: Click 'Done' when finish drawing", width = 54, height = 5, background = "goldenrod4")
       wordlabel.pack(side = LEFT)
-
+      
+      #http://stackoverflow.com/questions/10596988/making-a-countdown-timer-with-python-and-tkinter
+      def timer():
+         global time
+         if time is not None:
+           time = time
+         if time <= 0:
+           wordlabel.config(text="Word: " + word + "\n" + "Time Is Up!" + "\n" + "Tip: Click 'Done' when finish drawing")
+           halt(wordlabel)
+         else:
+           wordlabel.config(text="Word: " + word + "\n" + "Time Left: " + str(time) + "\n" + "Tip: Click 'Done' when finish drawing")
+           time = time - 1
+           root.after(1000, timer)
+      
+      timer()
+      
       player2label = Label(playerAndScore, text="~Player 2 Turn~" + "\n" + "Score: " + str(score2), width = 16, height = 5, background = p2Color)
       player2label.pack(side = LEFT)
 
