@@ -143,8 +143,11 @@ def main():
       # Move to next players turn
       def newGame():
 
+         global time
+         time = 30
+
          choosePlayer()
-         
+
          removeWidget(player1label)
          removeWidget(player2label)
          removeWidget(wordlabel)
@@ -154,8 +157,6 @@ def main():
          removeWidget(next_button)
          removeWidget(inputBox)
          canvas.delete(ALL)
-         global time
-         time = 30
          game()
 
       chooseColor()
@@ -163,25 +164,10 @@ def main():
       # Define player1, player2, and Info Label
       player1label = Label(playerAndScore, text="~Player 1 Turn~" + "\n" + "Score: " + str(score1), width = 16, height = 5, background = p1Color)
       player1label.pack(side = LEFT)
-      
+
       wordlabel= Label(playerAndScore, text="Word: " + word + "\n" + "Time Left: " + str(time) + "\n" + "Tip: Click 'Done' when finish drawing", width = 54, height = 5, background = "goldenrod4")
       wordlabel.pack(side = LEFT)
-      
-      #http://stackoverflow.com/questions/10596988/making-a-countdown-timer-with-python-and-tkinter
-      def timer():
-         global time
-         if time is not None:
-           time = time
-         if time <= 0:
-           wordlabel.config(text="Word: " + word + "\n" + "Time Is Up!" + "\n" + "Tip: Click 'Done' when finish drawing")
-           halt(wordlabel)
-         else:
-           wordlabel.config(text="Word: " + word + "\n" + "Time Left: " + str(time) + "\n" + "Tip: Click 'Done' when finish drawing")
-           time = time - 1
-           root.after(1000, timer)
-      
-      timer()
-      
+
       player2label = Label(playerAndScore, text="~Player 2 Turn~" + "\n" + "Score: " + str(score2), width = 16, height = 5, background = p2Color)
       player2label.pack(side = LEFT)
 
@@ -215,6 +201,23 @@ def main():
           else:
               check("incorrect")
               submit_label(wordlabel)
+
+      # Establish a time function to do count down
+      def timer():
+         global time
+         if time is not None:
+           time = time
+         if time <= 0:
+           wordlabel.config(text="Word: " + word + "\n" + "Time Is Up!" + "\n" + "Tip: Click 'Done' when finish drawing")
+           halt(wordlabel)
+         else:
+           wordlabel.config(text="Word: " + word + "\n" + "Time Left: " + str(time) + "\n" + "Tip: Click 'Done' when finish drawing")
+           time = time - 1
+           root.after(1000, timer)
+           #http://stackoverflow.com/questions/10596988/making-a-countdown-timer-with-python-and-tkinter
+
+      # Start timer count down
+      timer()
 
       # Create Clear, Done, Submit, and Next button
       clear_button=Button(submitAndNextPanel, text="Clear", command=lambda: clearCanvas())
