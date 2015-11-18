@@ -8,3 +8,18 @@ The application is built on Python. It allows the users to play with another per
 * Score Tracker
 * Sound Integration
 * and much more.
+
+
+### Contributor: ###
+
+* [Mushy1693](https://bitbucket.org/mushy1693/)
+
+### Languages: ###
+
+* Python
+
+### Modules: ###
+
+* Pyglet (Music)
+* Tkinter
+* PIL
